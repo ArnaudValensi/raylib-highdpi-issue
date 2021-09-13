@@ -1,0 +1,14 @@
+/game
+/game.exe
+/game.html
+/game.js
+/game.wasm
+/game.data
+/build
+/test
+/test.exe
+test_runner
+build-linux.log
+build-macos.log
+build-windows.log
+.ccls-cache

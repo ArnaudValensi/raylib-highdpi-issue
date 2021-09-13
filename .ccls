@@ -1,0 +1,3 @@
+clang
+-I./lib/raylib-3.7.0/macos/include
+-I./lib/raygui-2.6/src

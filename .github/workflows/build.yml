@@ -1,0 +1,54 @@
+name: Build game on all platforms
+
+on: [push]
+
+jobs:
+  build-linux:
+    name: Build for linux
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgl1-mesa-dev
+          make all 2>&1 | tee -a build-linux.log
+          make test 2>&1 | tee -a build-linux.log
+      - name: Upload linux build logs
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-logs
+          path: build-linux.log
+
+  build-macos:
+    name: Build for macos
+    runs-on: macos-10.15
+    steps:
+      - uses: actions/checkout@v2
+      - shell: bash
+        run: |
+          make all 2>&1 | tee -a build-macos.log
+          make test 2>&1 | tee -a build-macos.log
+      - name: Upload macos build logs
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-logs
+          path: build-macos.log
+
+  build-windows:
+    name: Build for windows
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - name: Add clang path to $PATH env
+        shell: bash
+        run: echo "C:\msys64\mingw64\bin" >> $GITHUB_PATH
+      - shell: bash
+        run: |
+          make all 2>&1 | tee -a build-windows.log
+          make test 2>&1 | tee -a build-windows.log
+      - name: Upload windows build logs
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-logs
+          path: build-windows.log
