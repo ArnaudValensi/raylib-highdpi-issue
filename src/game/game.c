@@ -19,6 +19,12 @@ static void Update() {
 
     DrawRectangleLines(5, 5, GetScreenWidth() - 10, GetScreenHeight() - 10, WHITE);
 
+    Vector2 mousePosition = GetMousePosition();
+    DrawCircle(mousePosition.x, mousePosition.y, 10.0, YELLOW);
+
+    Vector2 touchPosition = GetTouchPosition(0);
+    DrawCircle(touchPosition.x, touchPosition.y, 10.0, GREEN);
+
     EndDrawing();
 }
 
